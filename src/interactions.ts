@@ -60,6 +60,20 @@ const watCommand = (options: ValueData[]) => {
   }
 }
 
+async function postData(url= '', interaction: Interaction) {
+  const response = await fetch(`https://discord.com/api/webhooks/877294899140100136/${interaction.token}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "content": "wat up, this is a followup"
+    })
+  } )
+
+  return response.json();
+}
+
 export const processInteraction = async (request: Request) => {
     const { error } = await _validateRequest(request, {
       POST: {
@@ -89,6 +103,7 @@ export const processInteraction = async (request: Request) => {
       case InteractionType.APPLICATION_COMMAND: {
         const opt = interaction.data.options;
         console.log(interaction);
+        postData('', interaction).then(data => console.log(data));
         return opt ? watCommand(opt) : notImplemented()
       }
       default:
