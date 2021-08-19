@@ -1,17 +1,21 @@
 # Deno Discord Slash Commands
 
-This package provides Slash command support for the new Discord Interactions API.
+This package provides Slash command support for the new Discord Interactions
+API.
 
 ![](https://img.shields.io/github/v/release/Redstoneguy129/Deno-Discord-Slash-Commands?label=Version&style=for-the-badge)
 ![](https://forthebadge.com/images/badges/made-with-typescript.svg)
 ![](https://img.shields.io/github/license/Redstoneguy129/Deno-Discord-Slash-Commands?style=for-the-badge)
 ![](https://img.shields.io/github/issues/Redstoneguy129/Deno-Discord-Slash-Commands?style=for-the-badge)
 
-We've documented every type used by the interactions API, so you can make use of this library in your own projects, or make use of the utility functions we've provided to create, get, and delete slash commands.
+We've documented every type used by the interactions API, so you can make use of
+this library in your own projects, or make use of the utility functions we've
+provided to create, get, and delete slash commands.
 
 ## Installation
 
-This is a [Deno](https://deno.land/) module available from the [Deno module registry](https://deno.land/x/discord_slash_commands).
+This is a [Deno](https://deno.land/) module available from the
+[Deno module registry](https://deno.land/x/discord_slash_commands).
 
 ## Importing
 
@@ -33,7 +37,8 @@ const interaction = new DiscordInteractions({
 
 ## Usage
 
-> The following examples use `496279654483886100` as a guild id and `545581357812678656` as a command id
+> The following examples use `496279654483886100` as a guild id and
+> `545581357812678656` as a command id
 
 ### Getting Commands
 
@@ -125,6 +130,10 @@ await interaction
 
 ## Contributing
 
-Help is much-needed to improve the library and add all features. Please feel free to make a PR to [the repository](https://github.com/Redstoneguy129/Deno-Discord-Slash-Commands).
+Help is much-needed to improve the library and add all features. Please feel
+free to make a PR to
+[the repository](https://github.com/Redstoneguy129/Deno-Discord-Slash-Commands).
 
-This is a port of [MeguminSama's NodeJS Repo](https://github.com/MeguminSama/discord-slash-commands/) to Deno.
+This is a port of
+[MeguminSama's NodeJS Repo](https://github.com/MeguminSama/discord-slash-commands/)
+to Deno.

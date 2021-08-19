@@ -2,7 +2,7 @@ import { ApplicationCommandInteractionDataOption } from "./ApplicationCommandInt
 import { Snowflake } from "./Snowflake.ts";
 
 export type ApplicationCommandInteractionData = {
-    id: Snowflake;
-    name: string;
-    options?: ApplicationCommandInteractionDataOption[];
+  id: Snowflake;
+  name: string;
+  options?: ApplicationCommandInteractionDataOption[];
 };

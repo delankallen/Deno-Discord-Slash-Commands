@@ -2,6 +2,6 @@ import { InteractionApplicationCommandCallbackData } from "./InteractionApplicat
 import { InteractionResponseType } from "./InteractionResponseType.ts";
 
 export type InteractionResponse = {
-    type: InteractionResponseType;
-    data?: InteractionApplicationCommandCallbackData;
+  type: InteractionResponseType;
+  data?: InteractionApplicationCommandCallbackData;
 };
