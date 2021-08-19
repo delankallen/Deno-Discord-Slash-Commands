@@ -26,10 +26,32 @@ const animalCommand = (value: ApplicationCommandOptionValue) => {
   const intResponse: InteractionResponse = {
     type: 4,
     data: {
-      content: "I am an animal"
+      content: `I am a ${value}`
     }
   }
   return json(intResponse);
+}
+const notImplemented = () => {
+  const intResponse: InteractionResponse = {
+    type: 4,
+    data: {
+      content: "I can't let you do that!"
+    }
+  }
+  return json(intResponse);
+}
+
+const watCommand = (options: ValueData[]) => {
+  const {name, value} = options[0];
+  switch (name) {
+    case 'hello':
+      return helloCommand(value)
+    case 'animal':
+      console.log(options);
+      return animalCommand(value)  
+    default:
+      return notImplemented();
+  }
 }
 
 export const processInteraction = async (request: Request) => {
@@ -59,10 +81,8 @@ export const processInteraction = async (request: Request) => {
           type: 1, // Type 1 in a response is a Pong interaction response type.
         });
       case InteractionType.APPLICATION_COMMAND: {
-        const opt =
-          interaction.data.options?.find((option) => option.name === "name") ??
-            { value: "I can't let you do that. (Command registered but not implemented.)" };
-        return helloCommand(opt.value);
+        const opt = interaction.data.options;
+        return opt ? watCommand(opt) : notImplemented()
       }
       default:
         return json({ error: "bad request" }, { status: 400 });
