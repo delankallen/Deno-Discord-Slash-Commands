@@ -25,7 +25,7 @@ const notImplemented = () => {
 
 const watCommand = (options: ValueData[]) => {
   const { name, value } = options[0];
-  return executeCommand(name, value)
+  return executeCommand(name, value);
 };
 
 async function postData(url = "", interaction: Interaction) {
