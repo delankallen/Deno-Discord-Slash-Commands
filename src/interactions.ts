@@ -2,6 +2,7 @@ import {
   json,
   validateRequest as _validateRequest,
 } from "https://deno.land/x/sift@0.3.5/mod.ts";
+
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {
   ApplicationCommandOptionValue,
@@ -10,93 +11,8 @@ import {
   InteractionType,
   ValueData,
 } from "./structures/index.ts";
+import executeCommand from "./commands/index.ts";
 
-const memeEmbed = {
-	content: "FortheMemelord",
-	tts: false,
-	components: [
-		{
-			type: 1,
-			components: [
-				{
-					custom_id: "row_0_select_0",
-					placeholder: "Selectameme",
-					options: [
-						{
-							label: "meme1",
-							value: "https: //i.imgflip.com/5k4wae.jpg",
-							default: false
-						},
-						{
-							label: "meme2",
-							value: "https: //i.imgflip.com/5k4x2t.jpg",
-							default: false
-						}
-					],
-					min_values: 1,
-					max_values: 1,
-					type: 3
-				}
-			]
-		}
-	],
-	embeds: [
-		{
-			type: "rich",
-			title: "Selectyourmeme",
-			description: "Memesreturnedfromsearch",
-			color: "0xdd00ff",
-			fields: [
-				{
-					name: "meme1",
-					value: "https: //i.imgflip.com/5k4wae.jpg"
-				},
-				{
-					name: "meme2",
-					value: "https: //i.imgflip.com/5k4x2t.jpg"
-				}
-			],
-			image: {
-				url: "https: //i.imgflip.com/5k4x2t.jpg",
-				height: 0,
-				width: 0
-			}
-		}
-	]
-}
-
-const helloCommand = (value = {}) => {
-  const wat = json({
-    // Type 4 responds with the below message retaining the user's
-    // input at the top.
-    type: 4,
-    data: {
-      memeEmbed
-    },
-  });
-  console.log(wat);
-  return wat;
-};
-
-const animalCommand = (value: ApplicationCommandOptionValue) => {
-  if (value.toString().includes("penguin")) {
-    value =
-      "http://nfs.stvfiles.com/imagebase/196/master/196570-puffling-young-puffin-st-kilda.jpg";
-  } else if (value.toString().includes("dog")) {
-    value =
-      "https://www.pets4homes.co.uk/images/breeds/374/large/40da9a5b9c84a7c36b2169fd870fc1f7.jpg";
-  } else if (value.toString().includes("cat")) {
-    value =
-      "https://www.pressandjournal.co.uk/wp-content/uploads/sites/2/2014/11/Harry-the-cat-2.jpg";
-  }
-  const intResponse: InteractionResponse = {
-    type: 4,
-    data: {
-      content: `${value}`,
-    },
-  };
-  return json(intResponse);
-};
 const notImplemented = () => {
   const intResponse: InteractionResponse = {
     type: 4,
@@ -109,15 +25,7 @@ const notImplemented = () => {
 
 const watCommand = (options: ValueData[]) => {
   const { name, value } = options[0];
-  switch (name) {
-    case "name":
-      return helloCommand(value);
-    case "animal":
-      console.log(options);
-      return animalCommand(value);
-    default:
-      return notImplemented();
-  }
+  return executeCommand(name, value)
 };
 
 async function postData(url = "", interaction: Interaction) {
@@ -165,8 +73,6 @@ export const processInteraction = async (request: Request) => {
       });
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data.options;
-      // console.log(interaction);
-      // postData("", interaction).then((data) => console.log(data));
       return opt ? watCommand(opt) : notImplemented();
     }
     default:
