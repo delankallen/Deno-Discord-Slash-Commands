@@ -66,7 +66,7 @@ const memeEmbed = {
 }
 
 const helloCommand = (value = {}) => {
-  return json({
+  const wat = json({
     // Type 4 responds with the below message retaining the user's
     // input at the top.
     type: 4,
@@ -74,6 +74,8 @@ const helloCommand = (value = {}) => {
       memeEmbed
     },
   });
+  console.log(wat);
+  return wat;
 };
 
 const animalCommand = (value: ApplicationCommandOptionValue) => {
