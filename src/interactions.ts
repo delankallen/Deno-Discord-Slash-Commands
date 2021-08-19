@@ -44,7 +44,7 @@ const notImplemented = () => {
 const watCommand = (options: ValueData[]) => {
   const {name, value} = options[0];
   switch (name) {
-    case 'hello':
+    case 'name':
       return helloCommand(value)
     case 'animal':
       console.log(options);
