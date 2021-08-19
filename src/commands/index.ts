@@ -7,7 +7,7 @@ type commandIndex = {
 };
 
 const commandArr: commandIndex = {
-  hello: helloCommand,
+  name: helloCommand,
   animal: animalCommand,
 };
 
