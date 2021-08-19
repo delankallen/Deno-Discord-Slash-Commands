@@ -1,4 +1,4 @@
-import nacl from "nacl";
+import nacl from "https://cdn.skypack.dev/tweetnacl@v1.0.3?dts";
 
 export async function verifySignature(
   request: Request,
