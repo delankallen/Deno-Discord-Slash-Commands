@@ -88,6 +88,7 @@ export const processInteraction = async (request: Request) => {
         });
       case InteractionType.APPLICATION_COMMAND: {
         const opt = interaction.data.options;
+        console.log(interaction);
         return opt ? watCommand(opt) : notImplemented()
       }
       default:
