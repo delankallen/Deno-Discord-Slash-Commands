@@ -17,10 +17,20 @@ const helloCommand = (value: ApplicationCommandOptionValue) => {
     // input at the top.
     type: 4,
     data: {
-      content: `Hello, ${value}!`,
+      content: `Hello, ${value}, this is the new slash command!`,
     },
   });
 };
+
+const animalCommand = (value: ApplicationCommandOptionValue) => {
+  const intResponse: InteractionResponse = {
+    type: 4,
+    data: {
+      content: "I am an animal"
+    }
+  }
+  return json(intResponse);
+}
 
 export const processInteraction = async (request: Request) => {
     const { error } = await _validateRequest(request, {
@@ -51,7 +61,7 @@ export const processInteraction = async (request: Request) => {
       case InteractionType.APPLICATION_COMMAND: {
         const opt =
           interaction.data.options?.find((option) => option.name === "name") ??
-            { value: "" };
+            { value: "I can't let you do that. (Command registered but not implemented.)" };
         return helloCommand(opt.value);
       }
       default:
