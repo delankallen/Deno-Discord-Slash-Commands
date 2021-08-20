@@ -5,6 +5,7 @@ import {
 
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {
+ApplicationCommandInteractionData,
   Interaction,
   InteractionResponse,
   InteractionType,
@@ -22,9 +23,12 @@ const notImplemented = () => {
   return json(intResponse);
 };
 
-const watCommand = async (options: ValueData[]) => {
-  const { name } = options[0];
-  return await executeCommand(name, options);
+const watCommand = async (intData:ApplicationCommandInteractionData) => {
+  const name = intData.name;
+  if (intData.options)
+    return await executeCommand(name, intData.options)
+  else
+    return await notImplemented();
 };
 
 async function postData(url = "", interaction: Interaction) {
@@ -71,7 +75,7 @@ export const processInteraction = async (request: Request) => {
         type: 1, // Type 1 in a response is a Pong interaction response type.
       });
     case InteractionType.APPLICATION_COMMAND: {
-      const opt = interaction.data.options;
+      const opt = interaction.data;
       if (opt) {
         return await watCommand(opt);
       } else {

@@ -8,8 +8,8 @@ type commandIndex = {
 };
 
 const commandArr: commandIndex = {
-  name: helloCommand,
-  animal: animalCommand,
+  hello: helloCommand,
+  blep: animalCommand,
   meme: memeCommand,
 };
 
