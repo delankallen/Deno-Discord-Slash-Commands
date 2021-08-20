@@ -5,7 +5,6 @@ import {
 
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {
-  ApplicationCommandOptionValue,
   Interaction,
   InteractionResponse,
   InteractionType,
@@ -23,9 +22,9 @@ const notImplemented = () => {
   return json(intResponse);
 };
 
-const watCommand = (options: ValueData[]) => {
-  const { name, value } = options[0];
-  return executeCommand(name, value);
+const watCommand = async (options: ValueData[]) => {
+  const { name } = options[0];
+  return await executeCommand(name, options);
 };
 
 async function postData(url = "", interaction: Interaction) {
@@ -73,7 +72,11 @@ export const processInteraction = async (request: Request) => {
       });
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data.options;
-      return opt ? watCommand(opt) : notImplemented();
+      if (opt) {
+        return await watCommand(opt);
+      } else {
+        return notImplemented();
+      }
     }
     default:
       return json({ error: "bad request" }, { status: 400 });

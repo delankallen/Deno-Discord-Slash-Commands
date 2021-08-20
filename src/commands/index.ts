@@ -1,22 +1,24 @@
-import { ApplicationCommandOptionValue } from "../structures/index.ts";
+import { ValueData } from "../structures/index.ts";
 import animalCommand from "./animal.ts";
 import helloCommand from "./hello.ts";
+import memeCommand from "./meme.ts";
 
 type commandIndex = {
-  [key: string]: (value: ApplicationCommandOptionValue) => Response;
+  [key: string]: (value: ValueData[]) => Promise<Response>;
 };
 
 const commandArr: commandIndex = {
   name: helloCommand,
   animal: animalCommand,
+  meme: memeCommand,
 };
 
-export const executeCommand = (
+export const executeCommand = async (
   commandName: string,
-  value: ApplicationCommandOptionValue,
+  value: ValueData[],
 ) => {
   const wat = commandArr[commandName];
-  return wat(value);
+  return await wat(value);
 };
 
 export default executeCommand;

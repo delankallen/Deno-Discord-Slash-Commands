@@ -1,15 +1,15 @@
 import { json } from "https://deno.land/x/sift@0.3.5/mod.ts";
+import { InteractionResponse, ValueData } from "../structures/index.ts";
 
-const helloCommand = (value = {}) => {
-  const wat = json({
-    // Type 4 responds with the below message retaining the user's
-    // input at the top.
+const helloCommand = async (options: ValueData[]) => {
+  const { value } = options[0];
+  const interactionResp: InteractionResponse = {
     type: 4,
     data: {
       content: `Wat up, ${value}`,
     },
-  });
-  return wat;
+  };
+  return await json(interactionResp);
 };
 
 export default helloCommand;

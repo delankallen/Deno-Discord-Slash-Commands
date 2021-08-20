@@ -1,6 +1,0 @@
-{
-  "imports": {
-    "nacl": "https://cdn.skypack.dev/tweetnacl@v1.0.3?dts",
-    "sift": "https://deno.land/x/sift@0.3.5/mod.ts"
-  }
-}
