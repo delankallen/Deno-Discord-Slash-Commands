@@ -12,14 +12,14 @@ const memeCommand = async (options: ValueData[]) => {
     password: "!:hPBI,fPUY4TklU$Pm1",
   });
 
-  return await imgflip.captionMemes(memeId, captions).then((response) => {
+  const { id } = await imgflip.searchMemes(memeId);
+  return await imgflip.captionMemes(id, captions).then((response) => {
     const intResponse: InteractionResponse = {
       type: 4,
       data: {
         content: `${response.data.url}`,
       },
     };
-    console.log(intResponse);
     return json(intResponse);
   });
 };

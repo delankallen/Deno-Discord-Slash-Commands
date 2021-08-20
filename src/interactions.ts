@@ -5,7 +5,7 @@ import {
 
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {
-ApplicationCommandInteractionData,
+  ApplicationCommandInteractionData,
   Interaction,
   InteractionResponse,
   InteractionType,
@@ -23,12 +23,13 @@ const notImplemented = () => {
   return json(intResponse);
 };
 
-const watCommand = async (intData:ApplicationCommandInteractionData) => {
+const watCommand = async (intData: ApplicationCommandInteractionData) => {
   const name = intData.name;
-  if (intData.options)
-    return await executeCommand(name, intData.options)
-  else
+  if (intData.options) {
+    return await executeCommand(name, intData.options);
+  } else {
     return await notImplemented();
+  }
 };
 
 async function postData(url = "", interaction: Interaction) {

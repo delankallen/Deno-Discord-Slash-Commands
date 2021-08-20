@@ -1,10 +1,12 @@
 import {
   ApiResponse,
   CaptionMemeData,
+  Meme,
   MemeUser,
   PopMemesData,
 } from "./meme_types.ts";
 import CaptionParams from "./caption_meme_type.ts";
+import MemeSearch from "./meme_search.ts";
 
 async function postAsync(url = "", params = {}, data = {}) {
   url += `?${new URLSearchParams(params)}`;
@@ -30,6 +32,12 @@ class ImgFlip {
   getMemes = async (): Promise<ApiResponse<PopMemesData>> => {
     const response = await fetch(`${this.api_url}/get_memes`);
     return response.json();
+  };
+
+  searchMemes = async (memeName: string) => {
+    const popMemes = await this.getMemes();
+    const searchMemes = new MemeSearch(memeName, popMemes.data);
+    return await searchMemes.searchForMeme();
   };
 
   captionMemes = async (

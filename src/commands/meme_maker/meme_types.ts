@@ -13,7 +13,7 @@ export type CaptionMemeData = {
   page_url: string;
 };
 
-export interface Meme {
+export type Meme = {
   id: string;
   name: string;
   url: string;
@@ -21,9 +21,9 @@ export interface Meme {
   height: number;
   // deno-lint-ignore camelcase
   box_count: number;
-}
+};
 
-export interface MemeUser {
+export type MemeUser = {
   username: string;
   password: string;
-}
+};
