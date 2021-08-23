@@ -26,7 +26,7 @@ const executeCommand = (commandName: string, value: string) => {
 executeCommand("hello", "I am testing hello!");
 executeCommand("animal", "Dog");
 
-const memeEmbed = {
+const _memeEmbed = {
   content: "FortheMemelord",
   tts: false,
   components: [

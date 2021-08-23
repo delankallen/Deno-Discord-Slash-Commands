@@ -1,7 +1,6 @@
 import {
   ApiResponse,
   CaptionMemeData,
-  Meme,
   MemeUser,
   PopMemesData,
 } from "./meme_types.ts";

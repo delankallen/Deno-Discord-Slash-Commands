@@ -1,5 +1,4 @@
 import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
-import { Meme } from "../src/commands/meme_maker/meme_types.ts";
 
 const imgflip = new ImgFlip({
   username: "memelordceo",
@@ -30,3 +29,21 @@ console.log(wat);
 // }).slice(0,4);
 
 // console.log(`${BASE_URL}${encodeURIComponent("another one")}`);
+
+// import { cheerio, TagElement } from "https://deno.land/x/cheerio@1.0.4/mod.ts"
+
+// const BASE_URL = "https://imgflip.com/memesearch?q=";
+
+// const html = await fetch(
+//   `${BASE_URL}${encodeURIComponent("Spiderman")}`,
+// ).then((res) => {
+//   return res.text();
+// });
+// const $ = cheerio.load(html);
+
+// const wat : TagElement[] = [...$('h3 a[href^="/meme/"]').toArray()] as TagElement[]
+// const hrefs = wat.map((x, _i, _arr) => x.attribs['href'].match("[0-9]+")?.toString() ?? '194165493').slice(0,4)
+
+// console.log(hrefs)
+
+
