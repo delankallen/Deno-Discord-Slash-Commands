@@ -1,9 +1,4 @@
 import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
-import { cheerio } from "https://deno.land/x/cheerio@1.0.4/mod.ts";
-import {
-  DOMParser,
-  Element,
-} from "https://deno.land/x/deno_dom/deno-dom-wasm.ts";
 import { Meme } from "../src/commands/meme_maker/meme_types.ts";
 
 const imgflip = new ImgFlip({
