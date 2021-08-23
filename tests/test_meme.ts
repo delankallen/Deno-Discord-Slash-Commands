@@ -45,5 +45,3 @@ console.log(wat);
 // const hrefs = wat.map((x, _i, _arr) => x.attribs['href'].match("[0-9]+")?.toString() ?? '194165493').slice(0,4)
 
 // console.log(hrefs)
-
-

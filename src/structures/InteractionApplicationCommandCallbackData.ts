@@ -1,4 +1,5 @@
 import { AllowedMentions } from "./AllowedMentions.ts";
+import { Component } from "./Component.ts";
 import { Embed } from "./Embed.ts";
 import { MessageFlags } from "./MessageFlags.ts";
 
@@ -9,6 +10,7 @@ type ContentMessage = {
   embeds?: Embed[];
   allowedMentions?: AllowedMentions;
   flags?: MessageFlags;
+  components?: Component[];
 };
 
 type EmbedMessage = {
@@ -18,6 +20,7 @@ type EmbedMessage = {
   embeds: Embed[];
   allowedMentions?: AllowedMentions;
   flags?: MessageFlags;
+  components?: Component[];
 };
 
 export type InteractionApplicationCommandCallbackData =

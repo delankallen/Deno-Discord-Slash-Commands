@@ -14,3 +14,4 @@ export * from "./InteractionType.ts";
 export * from "./MessageFlags.ts";
 export * from "./Snowflake.ts";
 export * from "./User.ts";
+export * from "./Component.ts";

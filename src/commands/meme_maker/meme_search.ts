@@ -1,4 +1,4 @@
-import { cheerio,TagElement } from "https://deno.land/x/cheerio@1.0.4/mod.ts"
+import { cheerio, TagElement } from "https://deno.land/x/cheerio@1.0.4/mod.ts";
 
 import { Meme, PopMemesData } from "./meme_types.ts";
 
@@ -21,8 +21,12 @@ class MemeSearch {
     });
     const $ = cheerio.load(html);
 
-    const wat : TagElement[] = [...$('h3 a[href^="/meme/"]').toArray()] as TagElement[]
-    const hrefs = wat.map((x, _i, _arr) => x.attribs['href'].match("[0-9]+")?.toString() ?? '194165493').slice(0,4)
+    const wat: TagElement[] = [
+      ...$('h3 a[href^="/meme/"]').toArray(),
+    ] as TagElement[];
+    const hrefs = wat.map((x, _i, _arr) =>
+      x.attribs["href"].match("[0-9]+")?.toString() ?? "194165493"
+    ).slice(0, 4);
 
     return { id: hrefs[0] };
   };
