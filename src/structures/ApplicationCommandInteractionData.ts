@@ -5,4 +5,5 @@ export type ApplicationCommandInteractionData = {
   id: Snowflake;
   name: string;
   options?: ApplicationCommandInteractionDataOption[];
+  values?: string[];
 };

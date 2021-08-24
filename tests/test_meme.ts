@@ -18,12 +18,12 @@ const imgflip = new ImgFlip({
 const buildEmbed = (memeUrls: string[]): Embed[] => {
   return memeUrls.map((url, i) => {
     return {
-      title: `Meme: ${i+1}`,
+      title: `Meme: ${i + 1}`,
       color: 0xdd00ff,
       image: {
-        url: url
+        url: url,
       },
-    }
+    };
   });
 };
 
@@ -40,7 +40,7 @@ const buildComponent = (memeUrls: string[]): ActionRowComponent => {
           value: url,
         };
       }),
-    }]
+    }],
   };
 };
 

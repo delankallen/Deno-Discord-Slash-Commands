@@ -31,6 +31,37 @@ const watCommand = async (intData: ApplicationCommandInteractionData) => {
   }
 };
 
+async function patchAsync(url = "", data = {}) {
+  url += `?${new URLSearchParams(params)}`;
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+const BASE_URL = "https://discord.com/api/webhooks";
+
+const updateMessage = async (
+  appId: string,
+  intToken: string,
+  memeUrl: string,
+) => {
+  const intResponse: InteractionResponse = {
+    type: 4,
+    data: {
+      content: memeUrl,
+    },
+  };
+  return await patchAsync(
+    `${BASE_URL}/${appId}/${intToken}/messages/@original`,
+    json(intResponse),
+  );
+};
+
 export const processInteraction = async (request: Request) => {
   const { error } = await _validateRequest(request, {
     POST: {
@@ -52,8 +83,13 @@ export const processInteraction = async (request: Request) => {
   }
 
   const interaction: Interaction = JSON.parse(body);
-  const {message} = JSON.parse(body);
-  console.log(`Message: ${JSON.stringify(message)}`);
+  if (interaction.message) {
+    if (interaction.data?.values) {
+      const url = interaction.data.values[0];
+      return await updateMessage(interaction.message.application_id, interaction.token, url);
+    }
+  }
+  // console.log(`Message: ${JSON.stringify(message)}`);
   switch (interaction.type) {
     case InteractionType.PING:
       return json({

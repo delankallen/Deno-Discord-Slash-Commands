@@ -14,11 +14,11 @@ import ImgFlip from "./meme_maker/imgFlip.ts";
 const buildEmbed = (memeUrls: string[]): Embed[] => {
   return memeUrls.map((url, i) => {
     return {
-      title: `Meme: ${i+1}`,
+      title: `Meme: ${i + 1}`,
       image: {
-        url: url
+        url: url,
       },
-    }
+    };
   });
 };
 
@@ -35,7 +35,7 @@ const buildComponent = (memeUrls: string[]): ActionRowComponent => {
           value: url,
         };
       }),
-    }]
+    }],
   };
 };
 
