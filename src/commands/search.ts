@@ -51,7 +51,7 @@ const buildData = (
 
 const buildResponse = (memeUrls: string[]): InteractionResponse => {
   return {
-    type: InteractionResponseType.UPDATE_MESSAGE,
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: buildData(memeUrls),
   };
 };
