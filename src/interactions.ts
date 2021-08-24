@@ -49,12 +49,15 @@ const updateMessage = async (
   intToken: string,
   memeUrl: string,
 ) => {
+  console.log("Yo, wat up, I'm in the update.");
   const intResponse: InteractionResponse = {
     type: 4,
     data: {
       content: memeUrl,
     },
   };
+  console.log(`intResponse: ${JSON.stringify(intResponse)}`);
+  console.log(`${BASE_URL}/${appId}/${intToken}/messages/@original`);
   return await patchAsync(
     `${BASE_URL}/${appId}/${intToken}/messages/@original`,
     json(intResponse),
@@ -83,8 +86,11 @@ export const processInteraction = async (request: Request) => {
 
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
+    console.log(JSON.stringify(`message: ${interaction.message}`))
+    console.log(JSON.stringify(`data: ${interaction.data}`))
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
+      console.log(url);
       return await updateMessage(interaction.message.application_id, interaction.token, url);
     }
   }
