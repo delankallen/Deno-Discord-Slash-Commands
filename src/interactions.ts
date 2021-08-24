@@ -6,6 +6,7 @@ import {
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {
   ApplicationCommandInteractionData,
+  IntApplicationCommand,
   Interaction,
   InteractionResponse,
   InteractionType,
@@ -83,8 +84,9 @@ export const processInteraction = async (request: Request) => {
 
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
+    const noMess: IntApplicationCommand = JSON.parse(body);
     console.log(`message: ${JSON.stringify(interaction.message)}`)
-    console.log(`data: ${JSON.stringify(interaction.token)}`)
+    console.log(`int: ${JSON.stringify(noMess)}`)
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);

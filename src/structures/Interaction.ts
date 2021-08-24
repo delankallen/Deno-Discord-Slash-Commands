@@ -15,6 +15,18 @@ type ApplicationCommand = {
   message?: { application_id: Snowflake; id: Snowflake; token: string, webhook_id: Snowflake };
 };
 
+export type IntApplicationCommand = {
+  id: Snowflake;
+  type: InteractionType.APPLICATION_COMMAND;
+  data: ApplicationCommandInteractionData;
+  guildId: Snowflake;
+  channelId: Snowflake;
+  // member: GuildMember;
+  token: string;
+  // deno-lint-ignore camelcase
+  // message?: { application_id: Snowflake; id: Snowflake; token: string, webhook_id: Snowflake };
+};
+
 export type Interaction = ApplicationCommand | {
   id: Snowflake;
   type: Exclude<InteractionType, InteractionType.APPLICATION_COMMAND>;
