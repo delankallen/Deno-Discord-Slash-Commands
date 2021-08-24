@@ -60,6 +60,7 @@ const buildResponse = (memeUrls: string[]): InteractionResponse => {
   return {
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
+      components: [buildComponent(memeUrls)],
       content: memeUrls.reduce((acc, memeUrl) => acc + `${memeUrl}\n`, ""),
     },
   };
