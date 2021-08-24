@@ -75,21 +75,13 @@ const updateMessage = async (
 ) => {
   const intResponse = {
     content: memeUrl,
+    components: []
   };
 
-  await deleteAsync(
-    `${BASE_URL}/${appId}/${intToken}/messages/@original`
-  )
-
-  return await postAsync(
-    `${BASE_URL}/${appId}/${intToken}/`,
-    intResponse
-  )  
-
-  // return await patchAsync(
-  //   `${BASE_URL}/${appId}/${intToken}/messages/@original`,
-  //   intResponse,
-  // );
+  return await patchAsync(
+    `${BASE_URL}/${appId}/${intToken}/messages/@original`,
+    intResponse,
+  );
 };
 
 export const processInteraction = async (request: Request) => {
@@ -131,7 +123,7 @@ export const processInteraction = async (request: Request) => {
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data;
       token = interaction.token;
-      console.log(`token inside: ${token}`);
+      // console.log(`token inside: ${token}`);
       if (opt) {
         return await watCommand(opt);
       } else {
