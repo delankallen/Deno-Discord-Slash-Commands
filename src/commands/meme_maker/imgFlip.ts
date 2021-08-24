@@ -28,6 +28,16 @@ class ImgFlip {
     this._user = user;
   }
 
+  private captionParam = (id: string, captions: string[]): CaptionParams => ({
+    template_id: id,
+    username: this._user.username,
+    password: this._user.password,
+    ...Object.assign(
+      {},
+      ...captions.map((caption, i) => ({ [`boxes[${i}][text]`]: caption })),
+    ),
+  });
+
   getMemes = async (): Promise<ApiResponse<PopMemesData>> => {
     const response = await fetch(`${this.api_url}/get_memes`);
     return response.json();
@@ -39,25 +49,33 @@ class ImgFlip {
     return await searchMemes.searchForMeme();
   };
 
-  captionMemes = async (
+  captionMeme = async (
     templateId: string,
     captions: string[],
   ): Promise<ApiResponse<CaptionMemeData>> => {
-    const captionParam: CaptionParams = {
-      // deno-lint-ignore camelcase
-      template_id: templateId,
-      username: this._user.username,
-      password: this._user.password,
-      ...Object.assign(
-        {},
-        ...captions.map((caption, i) => ({ [`boxes[${i}][text]`]: caption })),
-      ),
-    };
     const response: Promise<ApiResponse<CaptionMemeData>> = await postAsync(
       `${this.api_url}/caption_image`,
-      captionParam,
+      this.captionParam(templateId, captions),
     );
     return response;
+  };
+
+  captionMemes = async (
+    memeIds: string[],
+    captions: string[],
+  ) => {
+    const postMemes: Promise<ApiResponse<CaptionMemeData>>[] = memeIds.map(
+      async (id) => {
+        const memeRespone: Promise<ApiResponse<CaptionMemeData>> =
+          await postAsync(
+            `${this.api_url}/caption_image`,
+            this.captionParam(id, captions),
+          );
+        return memeRespone;
+      },
+    );
+
+    return await Promise.all(postMemes);
   };
 }
 

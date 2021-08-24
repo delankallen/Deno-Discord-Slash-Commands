@@ -2,6 +2,7 @@ import { ValueData } from "../structures/index.ts";
 import animalCommand from "./animal.ts";
 import helloCommand from "./hello.ts";
 import memeCommand from "./meme.ts";
+import searchCommand from "./search.ts";
 
 type commandIndex = {
   [key: string]: (value: ValueData[]) => Promise<Response>;
@@ -11,6 +12,7 @@ const commandArr: commandIndex = {
   hello: helloCommand,
   blep: animalCommand,
   meme: memeCommand,
+  search: searchCommand,
 };
 
 export const executeCommand = async (

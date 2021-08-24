@@ -1,13 +1,34 @@
 import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
+import { InteractionResponse } from "../src/structures/index.ts";
 
 const imgflip = new ImgFlip({
   username: "memelordceo",
   password: "!:hPBI,fPUY4TklU$Pm1",
 });
 
+const buildResponse = (memeUrls: string[]) => {
+  const reducer = (acc: string, currentValue: string, i: number) =>
+    acc + `Meme: ${i}\n${currentValue}\n\n`;
+  const intResponse: InteractionResponse = {
+    type: 4,
+    data: {
+      content: memeUrls.reduce(reducer, ""),
+    },
+  };
+  return intResponse;
+};
+
 // const wat = await imgflip.getMemes();
-const { id } = await imgflip.searchMemes("Another one");
-const wat = await imgflip.captionMemes(id, ["Lambda", "Delta"]);
+// const { id } = await imgflip.searchMemes("Another one").then((res) => res[0]);
+const memes = await imgflip.searchMemes("yuji itadori").then((x) =>
+  x.map((meme) => meme.id)
+);
+// const wat = await imgflip.captionMeme(id, ["Lambda", "Delta"]);
+const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
+  res.map((meme) => meme.data.url)
+);
+
+const wat = buildResponse(yo);
 
 console.log(wat);
 

@@ -28,7 +28,9 @@ class MemeSearch {
       x.attribs["href"].match("[0-9]+")?.toString() ?? "194165493"
     ).slice(0, 4);
 
-    return { id: hrefs[0] };
+    return hrefs.map((x) => {
+      return { id: x };
+    });
   };
 
   searchForMeme = async () => {
@@ -36,7 +38,7 @@ class MemeSearch {
       meme.name.toLocaleLowerCase().includes(`${this._memeName.toLowerCase()}`)
     );
     if (memes.length > 0) {
-      return memes[0];
+      return memes;
     } else {
       return await this.searchSite();
     }
