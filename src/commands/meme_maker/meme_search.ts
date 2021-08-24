@@ -26,7 +26,7 @@ class MemeSearch {
     ] as TagElement[];
     const hrefs = wat.map((x, _i, _arr) =>
       x.attribs["href"].match("[0-9]+")?.toString() ?? "194165493"
-    ).slice(0, 4);
+    ).slice(0, 3);
 
     return hrefs.map((x) => {
       return { id: x };

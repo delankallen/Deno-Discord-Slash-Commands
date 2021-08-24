@@ -45,13 +45,13 @@ const buildData = (
   return {
     content: "For the Memelord",
     components: [buildComponent(memeUrls)],
-    embeds: [buildEmbed(memeUrls)[0], buildEmbed(memeUrls)[1]],
+    embeds: buildEmbed(memeUrls),
   };
 };
 
 const buildResponse = (memeUrls: string[]): InteractionResponse => {
   return {
-    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    type: InteractionResponseType.UPDATE_MESSAGE,
     data: buildData(memeUrls),
   };
 };
