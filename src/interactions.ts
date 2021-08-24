@@ -42,12 +42,11 @@ async function patchAsync(url = "", data = {}) {
   return response.json();
 }
 
-const BASE_URL = "https://discord.com/api/webhooks";
+const BASE_URL = "https://discord.com/api/v8/webhooks";
 
 const updateMessage = async (
   appId: string,
   intToken: string,
-  messId: string,
   memeUrl: string,
 ) => {
   console.log("Yo, wat up, I'm in the update.");
@@ -55,7 +54,7 @@ const updateMessage = async (
       content: memeUrl
   };
   console.log(`intResponse: ${JSON.stringify(intResponse)}`);
-  console.log(`${BASE_URL}/${appId}/${intToken}/messages/${messId}`);
+  console.log(`${BASE_URL}/${appId}/${intToken}/messages/@original`);
   return await patchAsync(
     `${BASE_URL}/${appId}/${intToken}/messages/@original`,
     json(intResponse),
@@ -85,11 +84,11 @@ export const processInteraction = async (request: Request) => {
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
     console.log(`message: ${JSON.stringify(interaction.message)}`)
-    console.log(`data: ${JSON.stringify(interaction)}`)
+    console.log(`data: ${JSON.stringify(interaction.token)}`)
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);
-      return await updateMessage(interaction.message.application_id, interaction.token,interaction.message.id, url);
+      return await updateMessage(interaction.message.application_id, interaction.token, url);
     }
   }
   // console.log(`Message: ${JSON.stringify(message)}`);
