@@ -43,6 +43,28 @@ async function patchAsync(url = "", data = {}) {
   return response.json();
 }
 
+async function postAsync(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+async function deleteAsync(url = "", data = {}) {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
 const BASE_URL = "https://discord.com/api/v9/webhooks";
 let token = "";
 
@@ -54,14 +76,21 @@ const updateMessage = async (
   console.log("Yo, wat up, I'm in the update.");
   const intResponse = {
     content: memeUrl,
-    components: [],
   };
-  console.log(`intResponse: ${JSON.stringify(intResponse)}`);
-  console.log(`${BASE_URL}/${appId}/${intToken}/messages/@original`);
-  return await patchAsync(
-    `${BASE_URL}/${appId}/${intToken}/messages/@original`,
-    intResponse,
-  );
+
+  await deleteAsync(
+    `${BASE_URL}/${appId}/${intToken}/messages/@original`
+  )
+
+  return await postAsync(
+    `${BASE_URL}/${appId}/${intToken}/`,
+    intResponse
+  )  
+
+  // return await patchAsync(
+  //   `${BASE_URL}/${appId}/${intToken}/messages/@original`,
+  //   intResponse,
+  // );
 };
 
 export const processInteraction = async (request: Request) => {
