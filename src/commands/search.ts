@@ -50,7 +50,7 @@ const buildData = (
   return {
     content: "For the Memelord",
     components: [buildComponent(memeUrls)],
-    embeds: [buildEmbed(memeUrls)],
+    embeds: buildEmbed(memeUrls),
   };
 };
 
