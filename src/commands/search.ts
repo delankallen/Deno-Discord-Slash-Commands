@@ -3,6 +3,7 @@ import { ActionRowComponent } from "../structures/ActionRowComponent.ts";
 import { ComponentType } from "../structures/ComponentType.ts";
 import {
   Embed,
+  EmbedImage,
   InteractionApplicationCommandCallbackData,
   InteractionResponse,
   InteractionResponseType,
@@ -14,15 +15,16 @@ import { SelectMenuComponent } from "../structures/SelectMenuComponent.ts";
 import ImgFlip from "./meme_maker/imgFlip.ts";
 import { ApiResponse, CaptionMemeData } from "./meme_maker/meme_types.ts";
 
-const buildEmbed = (memeUrls: string[]): Embed => {
-  return {
-    title: "Select your meme",
-    description: "Select your meme for the Memelord",
-    color: 0xdd00ff,
-    fields: memeUrls.map((url, i) => {
-      return { name: `Meme: ${i + 1}`, value: url };
-    }),
-  };
+const buildEmbed = (memeUrls: string[]): Embed[] => {
+  return memeUrls.map((url, i) => {
+    return {
+      title: `Meme: ${i+1}`,
+      color: 0xdd00ff,
+      image: {
+        url: url
+      },
+    }
+  });
 };
 
 const buildComponent = (memeUrls: string[]): ActionRowComponent => {

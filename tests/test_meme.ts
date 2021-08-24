@@ -2,7 +2,6 @@ import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
 import { ComponentType } from "../src/structures/ComponentType.ts";
 import {
   Embed,
-  EmbedField,
   InteractionApplicationCommandCallbackData,
   InteractionResponse,
   MessageFlags,
@@ -39,41 +38,6 @@ const buildComponent = (memeUrls: string[]): SelectMenuComponent => {
   };
 };
 
-const selectMenu: SelectMenuComponent = {
-  type: ComponentType.SELECT_MENU,
-  // deno-lint-ignore camelcase
-  custom_id: "row_0_select_0",
-  placeholder: "Select your offering for the Memelord!",
-  options: [
-    {
-      label: "meme1",
-      value: "https: //i.imgflip.com/5k4wae.jpg",
-      default: false,
-    },
-    {
-      label: "meme2",
-      value: "https: //i.imgflip.com/5k4x2t.jpg",
-      default: false,
-    },
-  ],
-};
-
-const embeded: Embed = {
-  title: "Selectyourmeme",
-  description: "Memesreturnedfromsearch",
-  color: 0xdd00ff,
-  fields: [
-    {
-      name: "meme1",
-      value: "https: //i.imgflip.com/5k4wae.jpg",
-    },
-    {
-      name: "meme2",
-      value: "https: //i.imgflip.com/5k4x2t.jpg",
-    },
-  ],
-};
-
 const memeEmb = (
   memeUrls: string[],
 ): InteractionApplicationCommandCallbackData => {
@@ -85,7 +49,7 @@ const memeEmb = (
   };
 };
 
-const buildResponse = (memeUrls: string[]) => {
+const _buildResponse = (memeUrls: string[]) => {
   const reducer = (acc: string, currentValue: string, i: number) =>
     acc + `Meme: ${i}\n${currentValue}\n\n`;
   const intResponse: InteractionResponse = {

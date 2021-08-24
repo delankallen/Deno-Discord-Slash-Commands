@@ -9,7 +9,6 @@ import {
   Interaction,
   InteractionResponse,
   InteractionType,
-  ValueData,
 } from "./structures/index.ts";
 import executeCommand from "./commands/index.ts";
 
@@ -32,23 +31,6 @@ const watCommand = async (intData: ApplicationCommandInteractionData) => {
   }
 };
 
-async function postData(url = "", interaction: Interaction) {
-  const response = await fetch(
-    `https://discord.com/api/webhooks/877294899140100136/${interaction.token}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "content": "wat up, this is a followup",
-      }),
-    },
-  );
-
-  return response.json();
-}
-
 export const processInteraction = async (request: Request) => {
   const { error } = await _validateRequest(request, {
     POST: {
@@ -70,6 +52,7 @@ export const processInteraction = async (request: Request) => {
   }
 
   const interaction: Interaction = JSON.parse(body);
+  console.log(`Interaction: ${interaction}`);
   switch (interaction.type) {
     case InteractionType.PING:
       return json({
