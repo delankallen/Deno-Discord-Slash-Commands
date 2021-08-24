@@ -43,7 +43,6 @@ const buildData = (
 ): InteractionApplicationCommandCallbackData => {
   return {
     content: "For the Memelord",
-    components: [buildComponent(memeUrls)],
     embeds: [buildEmbed(memeUrls)],
   };
 };
