@@ -43,7 +43,7 @@ async function patchAsync(url = "", data = {}) {
   return response.json();
 }
 
-const BASE_URL = "https://discord.com/api/v8/webhooks";
+const BASE_URL = "https://discord.com/api/v9/webhooks";
 let token = "";
 
 const updateMessage = async (
@@ -54,12 +54,13 @@ const updateMessage = async (
   console.log("Yo, wat up, I'm in the update.");
   const intResponse = {
     content: memeUrl,
+    components: [],
   };
   console.log(`intResponse: ${JSON.stringify(intResponse)}`);
   console.log(`${BASE_URL}/${appId}/${intToken}/messages/@original`);
   return await patchAsync(
     `${BASE_URL}/${appId}/${intToken}/messages/@original`,
-    json(intResponse),
+    intResponse,
   );
 };
 
@@ -85,12 +86,8 @@ export const processInteraction = async (request: Request) => {
 
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
-    // const noMess: IntApplicationCommand = JSON.parse(body);
-    // console.log(`message: ${JSON.stringify(interaction.message)}`);
-    // console.log(`int: ${JSON.stringify(noMess)}`);
-
-    console.log(`token1: ${token}`)
-    console.log(`token2: ${interaction.token}`)
+    console.log(`token1: ${token}`);
+    console.log(`token2: ${interaction.token}`);
 
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
@@ -111,7 +108,7 @@ export const processInteraction = async (request: Request) => {
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data;
       token = interaction.token;
-      console.log(`token inside: ${token}`)
+      console.log(`token inside: ${token}`);
       if (opt) {
         return await watCommand(opt);
       } else {
