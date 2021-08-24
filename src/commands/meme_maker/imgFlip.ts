@@ -65,11 +65,11 @@ class ImgFlip {
     captions: string[],
   ) => {
     const postMemes: Promise<ApiResponse<CaptionMemeData>>[] = memeIds.map(
-      async (id) => {
+      async (id, i) => {
         const memeRespone: Promise<ApiResponse<CaptionMemeData>> =
           await postAsync(
             `${this.api_url}/caption_image`,
-            this.captionParam(id, captions),
+            this.captionParam(id, [`Meme: ${i + 1}`]),
           );
         return memeRespone;
       },

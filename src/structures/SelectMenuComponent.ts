@@ -2,7 +2,7 @@ import { ComponentType } from "./ComponentType.ts";
 import { SelectOptions } from "./SelectOptions.ts";
 
 export type SelectMenuComponent = {
-  type: ComponentType.SELECT_MENU;
+  type: Exclude<ComponentType, ComponentType.BUTTON | ComponentType.ACTION_ROW>;
   // deno-lint-ignore camelcase
   custom_id: string;
   options: SelectOptions[];

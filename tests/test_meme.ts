@@ -1,10 +1,89 @@
 import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
-import { InteractionResponse } from "../src/structures/index.ts";
+import { ComponentType } from "../src/structures/ComponentType.ts";
+import {
+  Embed,
+  EmbedField,
+  InteractionApplicationCommandCallbackData,
+  InteractionResponse,
+  MessageFlags,
+} from "../src/structures/index.ts";
+import { SelectMenuComponent } from "../src/structures/SelectMenuComponent.ts";
 
 const imgflip = new ImgFlip({
   username: "memelordceo",
   password: "!:hPBI,fPUY4TklU$Pm1",
 });
+
+const buildEmbed = (memeUrls: string[]): Embed => {
+  return {
+    title: "Select your meme",
+    description: "Select your meme for the Memelord",
+    color: 0xdd00ff,
+    fields: memeUrls.map((url, i) => {
+      return { name: `Meme: ${i + 1}`, value: url };
+    }),
+  };
+};
+
+const buildComponent = (memeUrls: string[]): SelectMenuComponent => {
+  return {
+    type: ComponentType.SELECT_MENU,
+    custom_id: "row_0_select_0",
+    placeholder: "Select your offering for the Memelord!",
+    options: memeUrls.map((url, i) => {
+      return {
+        label: `Meme ${i + 1}`,
+        value: url,
+      };
+    }),
+  };
+};
+
+const selectMenu: SelectMenuComponent = {
+  type: ComponentType.SELECT_MENU,
+  // deno-lint-ignore camelcase
+  custom_id: "row_0_select_0",
+  placeholder: "Select your offering for the Memelord!",
+  options: [
+    {
+      label: "meme1",
+      value: "https: //i.imgflip.com/5k4wae.jpg",
+      default: false,
+    },
+    {
+      label: "meme2",
+      value: "https: //i.imgflip.com/5k4x2t.jpg",
+      default: false,
+    },
+  ],
+};
+
+const embeded: Embed = {
+  title: "Selectyourmeme",
+  description: "Memesreturnedfromsearch",
+  color: 0xdd00ff,
+  fields: [
+    {
+      name: "meme1",
+      value: "https: //i.imgflip.com/5k4wae.jpg",
+    },
+    {
+      name: "meme2",
+      value: "https: //i.imgflip.com/5k4x2t.jpg",
+    },
+  ],
+};
+
+const memeEmb = (
+  memeUrls: string[],
+): InteractionApplicationCommandCallbackData => {
+  return {
+    content: "For the Memelord",
+    flags: MessageFlags.EPHEMERAL,
+    components: [buildComponent(memeUrls)],
+    embeds: [buildEmbed(memeUrls)],
+  };
+};
 
 const buildResponse = (memeUrls: string[]) => {
   const reducer = (acc: string, currentValue: string, i: number) =>
@@ -28,9 +107,9 @@ const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
   res.map((meme) => meme.data.url)
 );
 
-const wat = buildResponse(yo);
+// const wat = buildResponse(yo);
 
-console.log(wat);
+console.log(memeEmb(yo).embeds);
 
 // const BASE_URL = "https://imgflip.com/memesearch?q=";
 
