@@ -73,7 +73,6 @@ const updateMessage = async (
   intToken: string,
   memeUrl: string,
 ) => {
-  console.log("Yo, wat up, I'm in the update.");
   const intResponse = {
     content: memeUrl,
   };
@@ -115,12 +114,8 @@ export const processInteraction = async (request: Request) => {
 
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
-    console.log(`token1: ${token}`);
-    console.log(`token2: ${interaction.token}`);
-
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
-      console.log(url);
       return await updateMessage(
         interaction.message.application_id,
         token,
@@ -128,7 +123,6 @@ export const processInteraction = async (request: Request) => {
       );
     }
   }
-  // console.log(`Message: ${JSON.stringify(message)}`);
   switch (interaction.type) {
     case InteractionType.PING:
       return json({
