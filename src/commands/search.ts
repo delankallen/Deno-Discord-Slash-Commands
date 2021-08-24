@@ -6,6 +6,7 @@ import {
   InteractionApplicationCommandCallbackData,
   InteractionResponse,
   InteractionResponseType,
+  MessageFlags,
   ValueData,
 } from "../structures/index.ts";
 
@@ -62,6 +63,7 @@ const buildResponse = (memeUrls: string[]): InteractionResponse => {
     data: {
       components: [buildComponent(memeUrls)],
       content: memeUrls.reduce((acc, memeUrl) => acc + `${memeUrl}\n`, ""),
+      flags: MessageFlags.EPHEMERAL,
     },
   };
 };
