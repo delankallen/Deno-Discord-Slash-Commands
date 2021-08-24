@@ -82,17 +82,21 @@ export const processInteraction = async (request: Request) => {
     );
   }
 
+  let token = "";
+
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
-    const noMess: IntApplicationCommand = JSON.parse(body);
-    console.log(`message: ${JSON.stringify(interaction.message)}`);
-    console.log(`int: ${JSON.stringify(noMess)}`);
+    // const noMess: IntApplicationCommand = JSON.parse(body);
+    // console.log(`message: ${JSON.stringify(interaction.message)}`);
+    // console.log(`int: ${JSON.stringify(noMess)}`);
+    console.log(token)
+    console.log(interaction.token)
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);
       return await updateMessage(
         interaction.message.application_id,
-        interaction.token,
+        token,
         url,
       );
     }
@@ -105,6 +109,7 @@ export const processInteraction = async (request: Request) => {
       });
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data;
+      token = interaction.token;
       if (opt) {
         return await watCommand(opt);
       } else {
