@@ -12,7 +12,7 @@ type ApplicationCommand = {
   member: GuildMember;
   token: string;
   // deno-lint-ignore camelcase
-  message?: { application_id: Snowflake; id: Snowflake; token: string };
+  message?: { application_id: Snowflake; id: Snowflake; token: string, webhook_id: Snowflake };
 };
 
 export type Interaction = ApplicationCommand | {
@@ -23,5 +23,5 @@ export type Interaction = ApplicationCommand | {
   channel_id: Snowflake;
   member: GuildMember;
   token: string;
-  message?: { application_id: Snowflake; id: Snowflake; token: string };
+  message?: { application_id: Snowflake; id: Snowflake; token: string; webhook_id: Snowflake };
 };
