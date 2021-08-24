@@ -51,11 +51,8 @@ const updateMessage = async (
   memeUrl: string,
 ) => {
   console.log("Yo, wat up, I'm in the update.");
-  const intResponse: InteractionResponse = {
-    type: 4,
-    data: {
-      content: memeUrl,
-    },
+  const intResponse = {
+      content: memeUrl
   };
   console.log(`intResponse: ${JSON.stringify(intResponse)}`);
   console.log(`${BASE_URL}/${appId}/${intToken}/messages/${messId}`);
@@ -88,11 +85,11 @@ export const processInteraction = async (request: Request) => {
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
     console.log(`message: ${JSON.stringify(interaction.message)}`)
-    console.log(`data: ${JSON.stringify(interaction.data)}`)
+    console.log(`data: ${JSON.stringify(interaction)}`)
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);
-      return await updateMessage(interaction.message.application_id, interaction.message.token,interaction.message.id, url);
+      return await updateMessage(interaction.message.application_id, interaction.token,interaction.message.id, url);
     }
   }
   // console.log(`Message: ${JSON.stringify(message)}`);
