@@ -32,7 +32,6 @@ const watCommand = async (intData: ApplicationCommandInteractionData) => {
 };
 
 async function patchAsync(url = "", data = {}) {
-  url += `?${new URLSearchParams(params)}`;
   const response = await fetch(url, {
     method: "PATCH",
     headers: {
