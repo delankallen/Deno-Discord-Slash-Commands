@@ -89,8 +89,10 @@ export const processInteraction = async (request: Request) => {
     // const noMess: IntApplicationCommand = JSON.parse(body);
     // console.log(`message: ${JSON.stringify(interaction.message)}`);
     // console.log(`int: ${JSON.stringify(noMess)}`);
-    console.log(token)
-    console.log(interaction.token)
+
+    console.log(`token1: ${token}`)
+    console.log(`token2: ${interaction.token}`)
+
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);
@@ -110,6 +112,7 @@ export const processInteraction = async (request: Request) => {
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data;
       token = interaction.token;
+      console.log(`token inside: ${token}`)
       if (opt) {
         return await watCommand(opt);
       } else {
