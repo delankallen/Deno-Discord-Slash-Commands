@@ -79,18 +79,12 @@ const searchCommand = async (options: ValueData[]) => {
   const memes = await imgflip.searchMemes(memeId).then((meme) =>
     meme.map((x) => x.id)
   );
-  console.log(memes);
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
     res.map((meme) => meme.data.url)
   );
 
-  console.log(memeUrls);
-
   const res = buildResponse(memeUrls);
   console.log(res);
-  console.log(res.data);
-  console.log(res.data?.components);
-  console.log(res.data?.embeds);
 
   return json(buildResponse(memeUrls));
 };
