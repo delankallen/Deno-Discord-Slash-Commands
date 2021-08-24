@@ -52,7 +52,7 @@ export const processInteraction = async (request: Request) => {
   }
 
   const interaction: Interaction = JSON.parse(body);
-  console.log(`Interaction: ${interaction}`);
+  console.log(`Interaction: ${JSON.stringify(interaction)}`);
   switch (interaction.type) {
     case InteractionType.PING:
       return json({

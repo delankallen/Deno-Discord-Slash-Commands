@@ -3,17 +3,13 @@ import { ActionRowComponent } from "../structures/ActionRowComponent.ts";
 import { ComponentType } from "../structures/ComponentType.ts";
 import {
   Embed,
-  EmbedImage,
   InteractionApplicationCommandCallbackData,
   InteractionResponse,
   InteractionResponseType,
-  MessageFlags,
   ValueData,
 } from "../structures/index.ts";
-import { SelectMenuComponent } from "../structures/SelectMenuComponent.ts";
 
 import ImgFlip from "./meme_maker/imgFlip.ts";
-import { ApiResponse, CaptionMemeData } from "./meme_maker/meme_types.ts";
 
 const buildEmbed = (memeUrls: string[]): Embed[] => {
   return memeUrls.map((url, i) => {
@@ -50,7 +46,7 @@ const buildData = (
   return {
     content: "For the Memelord",
     components: [buildComponent(memeUrls)],
-    embeds: buildEmbed(memeUrls),
+    embeds: [buildEmbed(memeUrls)[0]],
   };
 };
 
@@ -60,18 +56,6 @@ const buildResponse = (memeUrls: string[]): InteractionResponse => {
     data: buildData(memeUrls),
   };
 };
-
-// const buildResponse = (memeUrls: string[]) => {
-//   const reducer = (acc: string, currentValue: string, i: number) =>
-//     acc + `Meme: ${i}\n${currentValue}\n\n`;
-//   const intResponse: InteractionResponse = {
-//     type: 4,
-//     data: {
-//       content: memeUrls.reduce(reducer, ""),
-//     },
-//   };
-//   return intResponse;
-// };
 
 const searchCommand = async (options: ValueData[]) => {
   const [memeId, ...captions] = [...options.map((option) => {

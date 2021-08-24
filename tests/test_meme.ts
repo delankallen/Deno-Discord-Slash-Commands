@@ -1,9 +1,11 @@
 import ImgFlip from "../src/commands/meme_maker/imgFlip.ts";
+import { ActionRowComponent } from "../src/structures/ActionRowComponent.ts";
 import { ComponentType } from "../src/structures/ComponentType.ts";
 import {
   Embed,
   InteractionApplicationCommandCallbackData,
   InteractionResponse,
+  InteractionResponseType,
   MessageFlags,
 } from "../src/structures/index.ts";
 import { SelectMenuComponent } from "../src/structures/SelectMenuComponent.ts";
@@ -13,54 +15,51 @@ const imgflip = new ImgFlip({
   password: "!:hPBI,fPUY4TklU$Pm1",
 });
 
-const buildEmbed = (memeUrls: string[]): Embed => {
+const buildEmbed = (memeUrls: string[]): Embed[] => {
+  return memeUrls.map((url, i) => {
+    return {
+      title: `Meme: ${i+1}`,
+      color: 0xdd00ff,
+      image: {
+        url: url
+      },
+    }
+  });
+};
+
+const buildComponent = (memeUrls: string[]): ActionRowComponent => {
   return {
-    title: "Select your meme",
-    description: "Select your meme for the Memelord",
-    color: 0xdd00ff,
-    fields: memeUrls.map((url, i) => {
-      return { name: `Meme: ${i + 1}`, value: url };
-    }),
+    type: ComponentType.ACTION_ROW,
+    components: [{
+      type: ComponentType.SELECT_MENU,
+      custom_id: "row_0_select_0",
+      placeholder: "Select your offering for the Memelord!",
+      options: memeUrls.map((url, i) => {
+        return {
+          label: `Meme ${i + 1}`,
+          value: url,
+        };
+      }),
+    }]
   };
 };
 
-const buildComponent = (memeUrls: string[]): SelectMenuComponent => {
-  return {
-    type: ComponentType.SELECT_MENU,
-    custom_id: "row_0_select_0",
-    placeholder: "Select your offering for the Memelord!",
-    options: memeUrls.map((url, i) => {
-      return {
-        label: `Meme ${i + 1}`,
-        value: url,
-      };
-    }),
-  };
-};
-
-const memeEmb = (
+const buildData = (
   memeUrls: string[],
 ): InteractionApplicationCommandCallbackData => {
   return {
     content: "For the Memelord",
-    flags: MessageFlags.EPHEMERAL,
     components: [buildComponent(memeUrls)],
-    embeds: [buildEmbed(memeUrls)],
+    embeds: buildEmbed(memeUrls),
   };
 };
 
-const _buildResponse = (memeUrls: string[]) => {
-  const reducer = (acc: string, currentValue: string, i: number) =>
-    acc + `Meme: ${i}\n${currentValue}\n\n`;
-  const intResponse: InteractionResponse = {
-    type: 4,
-    data: {
-      content: memeUrls.reduce(reducer, ""),
-    },
+const buildResponse = (memeUrls: string[]): InteractionResponse => {
+  return {
+    type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+    data: buildData(memeUrls),
   };
-  return intResponse;
 };
-
 // const wat = await imgflip.getMemes();
 // const { id } = await imgflip.searchMemes("Another one").then((res) => res[0]);
 const memes = await imgflip.searchMemes("yuji itadori").then((x) =>
@@ -71,9 +70,10 @@ const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
   res.map((meme) => meme.data.url)
 );
 
-// const wat = buildResponse(yo);
+const wat = buildResponse(yo);
+console.log(wat);
 
-console.log(memeEmb(yo).embeds);
+console.log(JSON.stringify(wat));
 
 // const BASE_URL = "https://imgflip.com/memesearch?q=";
 
