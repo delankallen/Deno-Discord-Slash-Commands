@@ -1,4 +1,5 @@
 import { json } from "https://deno.land/x/sift@0.3.5/mod.ts";
+import { ActionRowComponent } from "../structures/ActionRowComponent.ts";
 import { ComponentType } from "../structures/ComponentType.ts";
 import {
   Embed,
@@ -24,17 +25,20 @@ const buildEmbed = (memeUrls: string[]): Embed => {
   };
 };
 
-const buildComponent = (memeUrls: string[]): SelectMenuComponent => {
+const buildComponent = (memeUrls: string[]): ActionRowComponent => {
   return {
-    type: ComponentType.SELECT_MENU,
-    custom_id: "row_0_select_0",
-    placeholder: "Select your offering for the Memelord!",
-    options: memeUrls.map((url, i) => {
-      return {
-        label: `Meme ${i + 1}`,
-        value: url,
-      };
-    }),
+    type: ComponentType.ACTION_ROW,
+    components: [{
+      type: ComponentType.SELECT_MENU,
+      custom_id: "row_0_select_0",
+      placeholder: "Select your offering for the Memelord!",
+      options: memeUrls.map((url, i) => {
+        return {
+          label: `Meme ${i + 1}`,
+          value: url,
+        };
+      }),
+    }]
   };
 };
 
@@ -43,6 +47,7 @@ const buildData = (
 ): InteractionApplicationCommandCallbackData => {
   return {
     content: "For the Memelord",
+    components: [buildComponent(memeUrls)],
     embeds: [buildEmbed(memeUrls)],
   };
 };
