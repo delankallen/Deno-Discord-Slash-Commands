@@ -15,49 +15,12 @@ const imgflip = new ImgFlip({
   password: "!:hPBI,fPUY4TklU$Pm1",
 });
 
-const buildEmbed = (memeUrls: string[]): Embed[] => {
-  return memeUrls.map((url, i) => {
-    return {
-      title: `Meme: ${i + 1}`,
-      color: 0xdd00ff,
-      image: {
-        url: url,
-      },
-    };
-  });
-};
-
-const buildComponent = (memeUrls: string[]): ActionRowComponent => {
-  return {
-    type: ComponentType.ACTION_ROW,
-    components: [{
-      type: ComponentType.SELECT_MENU,
-      custom_id: "row_0_select_0",
-      placeholder: "Select your offering for the Memelord!",
-      options: memeUrls.map((url, i) => {
-        return {
-          label: `Meme ${i + 1}`,
-          value: url,
-        };
-      }),
-    }],
-  };
-};
-
-const buildData = (
-  memeUrls: string[],
-): InteractionApplicationCommandCallbackData => {
-  return {
-    content: "For the Memelord",
-    components: [buildComponent(memeUrls)],
-    embeds: buildEmbed(memeUrls),
-  };
-};
-
 const buildResponse = (memeUrls: string[]): InteractionResponse => {
   return {
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-    data: buildData(memeUrls),
+    data: {
+      content: memeUrls.reduce((acc, memeUrl) => acc + `${memeUrl}\n`, ""),
+    },
   };
 };
 // const wat = await imgflip.getMemes();

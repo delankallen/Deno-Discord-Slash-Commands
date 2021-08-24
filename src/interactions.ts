@@ -52,7 +52,7 @@ const updateMessage = async (
 ) => {
   console.log("Yo, wat up, I'm in the update.");
   const intResponse = {
-      content: memeUrl
+    content: memeUrl,
   };
   console.log(`intResponse: ${JSON.stringify(intResponse)}`);
   console.log(`${BASE_URL}/${appId}/${intToken}/messages/@original`);
@@ -85,12 +85,16 @@ export const processInteraction = async (request: Request) => {
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
     const noMess: IntApplicationCommand = JSON.parse(body);
-    console.log(`message: ${JSON.stringify(interaction.message)}`)
-    console.log(`int: ${JSON.stringify(noMess)}`)
+    console.log(`message: ${JSON.stringify(interaction.message)}`);
+    console.log(`int: ${JSON.stringify(noMess)}`);
     if (interaction.data?.values) {
       const url = interaction.data.values[0];
       console.log(url);
-      return await updateMessage(interaction.message.application_id, interaction.token, url);
+      return await updateMessage(
+        interaction.message.application_id,
+        interaction.token,
+        url,
+      );
     }
   }
   // console.log(`Message: ${JSON.stringify(message)}`);
