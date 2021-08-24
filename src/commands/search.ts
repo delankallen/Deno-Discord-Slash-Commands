@@ -15,7 +15,6 @@ const buildEmbed = (memeUrls: string[]): Embed[] => {
   return memeUrls.map((url, i) => {
     return {
       title: `Meme: ${i+1}`,
-      color: 0xdd00ff,
       image: {
         url: url
       },
@@ -46,7 +45,7 @@ const buildData = (
   return {
     content: "For the Memelord",
     components: [buildComponent(memeUrls)],
-    embeds: [buildEmbed(memeUrls)[0]],
+    embeds: [buildEmbed(memeUrls)[0], buildEmbed(memeUrls)[1]],
   };
 };
 
@@ -72,9 +71,6 @@ const searchCommand = async (options: ValueData[]) => {
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
     res.map((meme) => meme.data.url)
   );
-
-  const res = buildResponse(memeUrls);
-  console.log(res);
 
   return json(buildResponse(memeUrls));
 };

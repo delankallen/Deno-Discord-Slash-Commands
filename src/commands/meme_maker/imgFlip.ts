@@ -9,7 +9,6 @@ import MemeSearch from "./meme_search.ts";
 
 async function postAsync(url = "", params = {}, data = {}) {
   url += `?${new URLSearchParams(params)}`;
-  console.log(JSON.stringify(data));
   const response = await fetch(url, {
     method: "POST",
     headers: {
