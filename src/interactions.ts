@@ -44,6 +44,7 @@ async function patchAsync(url = "", data = {}) {
 }
 
 const BASE_URL = "https://discord.com/api/v8/webhooks";
+let token = "";
 
 const updateMessage = async (
   appId: string,
@@ -81,8 +82,6 @@ export const processInteraction = async (request: Request) => {
       },
     );
   }
-
-  let token = "";
 
   const interaction: Interaction = JSON.parse(body);
   if (interaction.message) {
