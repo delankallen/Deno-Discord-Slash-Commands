@@ -38,10 +38,11 @@ const html = await fetch(
 const $ = cheerio.load(html);
 
 const a: TagElement[] = [
-  ...$('h3 a[href^="/meme/"]').toArray(),
+  ...$('a[href^="/memegenerator/"]').toArray(),
 ] as TagElement[];
 
 const links = a.map((x, _i, _arr) => x.attribs["href"]);
+console.log(links);
 
 const popMemes = await imgflip.getMemes();
 
@@ -57,8 +58,7 @@ const getId = async (mName: string) => {
 
   const tempId = $("#mtm-info p:first-of-type").text().split(" ")[2] ?? "";
 
-  return tempId;
-};
+  return tempId;};
 
 const getHrefs = async () => {
   const watwat = a.map((x, _i, _arr) =>
@@ -75,7 +75,7 @@ const getHrefs = async () => {
 
 console.log(await getHrefs());
 
-const memes = await imgflip.searchMemes("yuji itadori");
+const memes = await imgflip.searchMemes("disappear");
 const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
   res.map((meme) => meme.data.url)
 );

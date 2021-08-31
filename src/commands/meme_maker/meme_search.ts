@@ -37,7 +37,7 @@ class MemeSearch {
     const $ = cheerio.load(html);
 
     const wat: TagElement[] = [
-      ...$('h3 a[href^="/meme/"]').toArray(),
+      ...$('a[href^="/memegenerator/"]').toArray(),
     ] as TagElement[];
     const watwat = wat.map((x, _i, _arr) =>
       x.attribs["href"].split("/")[2] ?? "194165493"
