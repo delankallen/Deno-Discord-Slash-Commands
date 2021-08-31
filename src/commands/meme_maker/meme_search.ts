@@ -2,7 +2,7 @@ import { cheerio, TagElement } from "https://deno.land/x/cheerio@1.0.4/mod.ts";
 
 import { Meme, PopMemesData } from "./meme_types.ts";
 
-const BASE_URL = "https://imgflip.com/memesearch?q=";
+const BASE_URL = "https://imgflip.com";
 
 class MemeSearch {
   private _memeName: string;
@@ -30,7 +30,7 @@ class MemeSearch {
 
   private searchSite = async () => {
     const html = await fetch(
-      `${BASE_URL}${encodeURIComponent(this._memeName)}`,
+      `${BASE_URL}/memesearch?q=${encodeURIComponent(this._memeName)}`,
     ).then((res) => {
       return res.text();
     });
