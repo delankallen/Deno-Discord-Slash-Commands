@@ -76,10 +76,11 @@ const getHrefs = async () => {
 console.log(await getHrefs());
 
 const memes = await imgflip.searchMemes("yuji itadori");
-// const wat = await imgflip.captionMeme(id, ["Lambda", "Delta"]);
 const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
   res.map((meme) => meme.data.url)
 );
+
+console.log(yo);
 
 // const wat = buildResponse(yo);
 

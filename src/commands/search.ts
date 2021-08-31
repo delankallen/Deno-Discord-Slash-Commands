@@ -70,7 +70,9 @@ const searchCommand = async (options: ValueData[]) => {
   const memes = await imgflip.searchMemes(memeId);
   console.log(`memeIds: ${memes}`);
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
-    res.map((meme) => meme.data.url)
+    res.map((meme) => {
+      console.log(meme)
+      return meme.data.url})
   );
 
   console.log(`memeUrls: ${memeUrls}`);
