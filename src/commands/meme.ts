@@ -12,7 +12,7 @@ const memeCommand = async (options: ValueData[]) => {
     password: "!:hPBI,fPUY4TklU$Pm1",
   });
 
-  const { id } = await imgflip.searchMemes(memeId).then((res) => res[0]);
+  const id = await imgflip.searchMemes(memeId).then((res) => res[0]);
   return await imgflip.captionMeme(id, captions).then((response) => {
     const intResponse: InteractionResponse = {
       type: 4,

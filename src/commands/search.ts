@@ -40,16 +40,6 @@ const buildComponent = (memeUrls: string[]): ActionRowComponent => {
   };
 };
 
-const buildData = (
-  memeUrls: string[],
-): InteractionApplicationCommandCallbackData => {
-  return {
-    content: "For the Memelord",
-    components: [buildComponent(memeUrls)],
-    embeds: buildEmbed(memeUrls),
-  };
-};
-
 // const buildResponse = (memeUrls: string[]): InteractionResponse => {
 //   return {
 //     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
@@ -76,9 +66,7 @@ const searchCommand = async (options: ValueData[]) => {
     password: "!:hPBI,fPUY4TklU$Pm1",
   });
 
-  const memes = await imgflip.searchMemes(memeId).then((meme) =>
-    meme.map((x) => x.id)
-  );
+  const memes = await imgflip.searchMemes(memeId);
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
     res.map((meme) => meme.data.url)
   );

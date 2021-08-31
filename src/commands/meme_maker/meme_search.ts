@@ -56,7 +56,7 @@ class MemeSearch {
       meme.name.toLocaleLowerCase().includes(`${this._memeName.toLowerCase()}`)
     );
     if (memes.length > 0) {
-      return memes;
+      return memes.map(x=> x.id);
     } else {
       return await this.searchSite();
     }
