@@ -61,15 +61,19 @@ const searchCommand = async (options: ValueData[]) => {
   const [memeId, ...captions] = [...options.map((option) => {
     return option.value.toString();
   })];
+  console.log(`memeData: ${memeId}, [${captions}]`)
   const imgflip = new ImgFlip({
     username: "memelordceo",
     password: "!:hPBI,fPUY4TklU$Pm1",
   });
 
   const memes = await imgflip.searchMemes(memeId);
+  console.log(`memeIds: ${memes}`)
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
     res.map((meme) => meme.data.url)
   );
+
+  console.log(`memeUrls: ${memeUrls}`)
 
   return json(buildResponse(memeUrls));
 };
