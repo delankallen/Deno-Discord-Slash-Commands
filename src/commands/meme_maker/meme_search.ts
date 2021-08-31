@@ -56,9 +56,11 @@ class MemeSearch {
       meme.name.toLocaleLowerCase().includes(`${this._memeName.toLowerCase()}`)
     );
     if (memes.length > 0) {
-      return memes.map(x=> x.id);
+      return memes.map((x) => x.id);
     } else {
-      return await this.searchSite();
+      const watwat = await this.searchSite();
+      console.log("SearchData"+watwat)
+      return watwat
     }
   };
 }
