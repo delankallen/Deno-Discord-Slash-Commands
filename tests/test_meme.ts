@@ -10,6 +10,10 @@ import {
 } from "../src/structures/index.ts";
 import { SelectMenuComponent } from "../src/structures/SelectMenuComponent.ts";
 
+import { cheerio, TagElement } from "https://deno.land/x/cheerio@1.0.4/mod.ts";
+
+const BASE_URL = "https://imgflip.com";
+
 const imgflip = new ImgFlip({
   username: "memelordceo",
   password: "!:hPBI,fPUY4TklU$Pm1",
@@ -23,8 +27,54 @@ const buildResponse = (memeUrls: string[]): InteractionResponse => {
     },
   };
 };
-// const wat = await imgflip.getMemes();
-// const { id } = await imgflip.searchMemes("Another one").then((res) => res[0]);
+
+const _memeName = "spiderman";
+
+const html = await fetch(
+  `${BASE_URL}/memesearch?q=${encodeURIComponent(_memeName)}`,
+).then((res) => {
+  return res.text();
+});
+const $ = cheerio.load(html);
+
+const a: TagElement[] = [
+  ...$('h3 a[href^="/meme/"]').toArray(),
+] as TagElement[];
+
+const links = a.map((x, _i, _arr) => x.attribs["href"]);
+
+const popMemes = await imgflip.getMemes();
+
+const getId = async (mName: string) => {
+  if (!mName.includes("-")) {
+    return mName;
+  }
+  const memeTempPage = await fetch(
+    `${BASE_URL}/memetemplate/${mName}`,
+  ).then((res) => res.text());
+
+  const $ = cheerio.load(memeTempPage);
+
+  const tempId = $("#mtm-info p:first-of-type").text().split(" ")[2] ?? "";
+
+  return tempId;
+};
+
+const getHrefs = async () => {
+  const watwat = a.map((x, _i, _arr) =>
+    x.attribs["href"].split("/")[2] ?? "194165493"
+  ).slice(0, 3);
+
+  const memes: Promise<string>[] = watwat.map(async (mName, _i) => {
+    const mRes = await getId(mName);
+    return mRes;
+  });
+
+  return await Promise.all(memes);
+};
+
+console.log(await getHrefs());
+
 const memes = await imgflip.searchMemes("yuji itadori").then((x) =>
   x.map((meme) => meme.id)
 );
@@ -33,10 +83,7 @@ const yo = await imgflip.captionMemes(memes, ["Lambda", "Delta"]).then((res) =>
   res.map((meme) => meme.data.url)
 );
 
-const wat = buildResponse(yo);
-console.log(wat);
-
-console.log(JSON.stringify(wat));
+// const wat = buildResponse(yo);
 
 // const BASE_URL = "https://imgflip.com/memesearch?q=";
 

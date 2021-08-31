@@ -75,7 +75,7 @@ const updateMessage = async (
 ) => {
   const intResponse = {
     content: memeUrl,
-    components: []
+    components: [],
   };
 
   return await patchAsync(

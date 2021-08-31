@@ -13,6 +13,21 @@ class MemeSearch {
     this._popMemes = popMemes.memes;
   }
 
+  private getId = async (mName: string) => {
+    if (!mName.includes("-")) {
+      return mName;
+    }
+    const memeTempPage = await fetch(
+      `${BASE_URL}/memetemplate/${mName}`,
+    ).then((res) => res.text());
+
+    const $ = cheerio.load(memeTempPage);
+
+    const tempId = $("#mtm-info p:first-of-type").text().split(" ")[2] ?? "";
+
+    return tempId;
+  };
+
   private searchSite = async () => {
     const html = await fetch(
       `${BASE_URL}${encodeURIComponent(this._memeName)}`,
@@ -24,13 +39,16 @@ class MemeSearch {
     const wat: TagElement[] = [
       ...$('h3 a[href^="/meme/"]').toArray(),
     ] as TagElement[];
-    const hrefs = wat.map((x, _i, _arr) =>
-      x.attribs["href"].match("[0-9]+")?.toString() ?? "194165493"
+    const watwat = wat.map((x, _i, _arr) =>
+      x.attribs["href"].split("/")[2] ?? "194165493"
     ).slice(0, 3);
 
-    return hrefs.map((x) => {
-      return { id: x };
+    const memes: Promise<string>[] = watwat.map(async (mName, _i) => {
+      const mRes = await this.getId(mName);
+      return mRes;
     });
+
+    return await Promise.all(memes);
   };
 
   searchForMeme = async () => {
