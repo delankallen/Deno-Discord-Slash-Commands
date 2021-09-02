@@ -59,8 +59,7 @@ class MemeSearch {
       return memes.map((x) => x.id);
     } else {
       const watwat = await this.searchSite();
-      console.log("SearchData"+watwat)
-      return watwat
+      return watwat;
     }
   };
 }

@@ -3,6 +3,7 @@ import animalCommand from "./animal.ts";
 import helloCommand from "./hello.ts";
 import memeCommand from "./meme.ts";
 import searchCommand from "./search.ts";
+import timCommand from "./tim.ts";
 
 type commandIndex = {
   [key: string]: (value: ValueData[]) => Promise<Response>;
@@ -13,6 +14,7 @@ const commandArr: commandIndex = {
   blep: animalCommand,
   meme: memeCommand,
   search: searchCommand,
+  tim: timCommand,
 };
 
 export const executeCommand = async (

@@ -58,7 +58,8 @@ const getId = async (mName: string) => {
 
   const tempId = $("#mtm-info p:first-of-type").text().split(" ")[2] ?? "";
 
-  return tempId;};
+  return tempId;
+};
 
 const getHrefs = async () => {
   const watwat = a.map((x, _i, _arr) =>

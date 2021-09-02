@@ -3,10 +3,8 @@ import { ActionRowComponent } from "../structures/ActionRowComponent.ts";
 import { ComponentType } from "../structures/ComponentType.ts";
 import {
   Embed,
-  InteractionApplicationCommandCallbackData,
   InteractionResponse,
   InteractionResponseType,
-  MessageFlags,
   ValueData,
 } from "../structures/index.ts";
 
@@ -61,7 +59,6 @@ const searchCommand = async (options: ValueData[]) => {
   const [memeId, ...captions] = [...options.map((option) => {
     return option.value.toString();
   })];
-  console.log(`memeData: ${memeId}, [${captions}]`);
   const imgflip = new ImgFlip({
     username: "memelordceo",
     password: "!:hPBI,fPUY4TklU$Pm1",
@@ -71,8 +68,8 @@ const searchCommand = async (options: ValueData[]) => {
   console.log(`memeIds: ${memes}`);
   const memeUrls = await imgflip.captionMemes(memes, captions).then((res) =>
     res.map((meme) => {
-      console.log(meme)
-      return meme.data.url})
+      return meme.data.url;
+    })
   );
 
   console.log(`memeUrls: ${memeUrls}`);
