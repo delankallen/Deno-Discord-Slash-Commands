@@ -6,7 +6,7 @@ const timCommand = async (options: ValueData[]) => {
   const interactionResp: InteractionResponse = {
     type: 4,
     data: {
-      content: `${value} has disappointed Tim. https://i.imgflip.com/5lo3yw.jpg`,
+      content: `${value ?? "The world"} has disappointed Tim. https://i.imgflip.com/5lo3yw.jpg`,
     },
   };
   return await json(interactionResp);
