@@ -1,4 +1,4 @@
-import { serve } from "https://cdn.deno.land/sift/versions/0.4.3/raw/mod.ts";
+import { serve } from "https://deno.land/x/sift/mod.ts";
 import { processInteraction } from "./mod.ts";
 
 serve({
