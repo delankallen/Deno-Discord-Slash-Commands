@@ -122,6 +122,7 @@ export const processInteraction = async (request: Request) => {
       });
     case InteractionType.APPLICATION_COMMAND: {
       const opt = interaction.data;
+      console.log(`some data: ${opt}`)
       token = interaction.token;
       // console.log(`token inside: ${token}`);
       if (opt) {
