@@ -38,13 +38,6 @@ const buildComponent = (memeUrls: string[]): ActionRowComponent => {
   };
 };
 
-// const buildResponse = (memeUrls: string[]): InteractionResponse => {
-//   return {
-//     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-//     data: buildData(memeUrls),
-//   };
-// };
-
 const buildResponse = (memeUrls: string[]): InteractionResponse => {
   return {
     type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
