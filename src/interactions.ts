@@ -1,7 +1,7 @@
 import {
   json,
   validateRequest as _validateRequest,
-} from "https://deno.land/x/sift@0.3.5/mod.ts";
+} from "https://deno.land/x/sift/mod.ts";
 
 import { verifySignature as _verifySignature } from "./utils.ts";
 import {

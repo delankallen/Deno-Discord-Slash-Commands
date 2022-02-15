@@ -1,4 +1,4 @@
-import { json } from "https://deno.land/x/sift@0.3.5/mod.ts";
+import { json } from "https://deno.land/x/sift/mod.ts";
 import { ActionRowComponent } from "../structures/ActionRowComponent.ts";
 import { ComponentType } from "../structures/ComponentType.ts";
 import {

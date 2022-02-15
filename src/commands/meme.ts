@@ -1,4 +1,4 @@
-import { json } from "https://deno.land/x/sift@0.3.5/mod.ts";
+import { json } from "https://deno.land/x/sift/mod.ts";
 import { InteractionResponse, ValueData } from "../structures/index.ts";
 
 import ImgFlip from "./meme_maker/imgFlip.ts";
